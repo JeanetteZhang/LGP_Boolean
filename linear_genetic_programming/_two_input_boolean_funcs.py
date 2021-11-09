@@ -1,4 +1,5 @@
 import copy
+import numpy as np
 
 from linear_genetic_programming._genetic_operations import GeneticOperations
 from linear_genetic_programming._instruction import Instruction
@@ -109,6 +110,41 @@ class TwoInputBooleanFuncs:
                     mutProg.seq[i].reg2_index = reg2[m - (
                             GeneticOperations.N_OPERATION - 1 + GeneticOperations.N_VARIABLE - 1 + GeneticOperations.N_VARIABLE + GeneticOperations.N_INPUT - 1)]
                 neibors.append(mutProg)
-                print(mutProg.toString())
         return neibors
 
+    @staticmethod
+    def one_step_mutation(prog):
+        mutProg = copy.deepcopy(prog)
+        operations = []
+        return_reg = []
+        reg1 = []
+        reg2 = []
+
+        i = np.random.randint(prog.get_length)
+        m = np.random.randint(GeneticOperations.N_INSTRUCTION_ONESTEPMUT)
+
+        for j in range(GeneticOperations.N_OPERATION):
+            operations.append(j)
+        operations = list(filter((prog.seq[i].oper_index).__ne__, operations))
+        for j in range(GeneticOperations.N_VARIABLE):
+            return_reg.append(j)
+        return_reg = list(filter((prog.seq[i].returnRegIndex).__ne__, return_reg))
+        for j in range(GeneticOperations.N_INPUT + GeneticOperations.N_VARIABLE):
+            reg1.append(j)
+            reg2.append(j)
+        reg1 = list(filter((prog.seq[i].reg1_index).__ne__, reg1))
+        reg2 = list(filter((prog.seq[i].reg2_index).__ne__, reg2))
+
+        if m < GeneticOperations.N_OPERATION - 1:  # mutate operation
+            mutProg.seq[i].oper_index = operations[m]
+        elif m - (
+                GeneticOperations.N_OPERATION - 1) < GeneticOperations.N_VARIABLE - 1:  # mutate return register
+            mutProg.seq[i].returnRegIndex = return_reg[m - (GeneticOperations.N_OPERATION - 1)]
+        elif m - (
+                GeneticOperations.N_OPERATION - 1 + GeneticOperations.N_VARIABLE - 1) < GeneticOperations.N_VARIABLE + GeneticOperations.N_INPUT - 1:  # mutate calculation register1
+            mutProg.seq[i].reg1_index = reg1[
+                m - (GeneticOperations.N_OPERATION - 1 + GeneticOperations.N_VARIABLE - 1)]
+        else:  # mutate calculation register 2
+            mutProg.seq[i].reg2_index = reg2[m - (
+                    GeneticOperations.N_OPERATION - 1 + GeneticOperations.N_VARIABLE - 1 + GeneticOperations.N_VARIABLE + GeneticOperations.N_INPUT - 1)]
+        return mutProg

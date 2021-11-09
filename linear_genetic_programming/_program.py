@@ -119,6 +119,6 @@ class Program:
             if (neibor_pheno[j] != prog_func) and (neibor_pheno[j] not in neibor_non_neutral_func):
                 neibor_non_neutral_func += [neibor_pheno[j]]
         self.evolva = len(neibor_non_neutral_func)
- 
+
     def get_length(self):
         return len(self.seq)

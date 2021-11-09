@@ -23,8 +23,8 @@ class Instruction:
         calculated using random number in len(numberOfOperation)
     returnRegIndex
         calculated using random number in len(numberOfVariable)
-    reg1Index
-    reg2Index
+    reg1_index
+    reg2_index
 
     '''
 

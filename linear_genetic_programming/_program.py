@@ -100,6 +100,17 @@ class Program:
         neural_neibor_count = 0
         neibors = TwoInputBooleanFuncs.generateOneStepNeibors(self)
 
-
+    def get_geno_evolva(self):
+        neibor_non_neutral_func = []
+        neibors = TwoInputBooleanFuncs.generateOneStepNeibors(self)
+        neibor_pheno = []
+        prog_func = TwoInputBooleanFuncs.phenotype(self)
+        for i in range(len(neibors)):
+            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
+        for j in range(len(neibors)):
+            if (neibor_pheno[j] != prog_func) and (neibor_pheno[j] not in neibor_non_neutral_func):
+                neibor_non_neutral_func += [neibor_pheno[j]]
+        self.evolva = len(neibor_non_neutral_func)
+ 
     def get_length(self):
         return len(self.seq)

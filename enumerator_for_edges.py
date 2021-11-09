@@ -1,7 +1,6 @@
 import copy
 
 from linear_genetic_programming._program import Program
-from linear_genetic_programming._instruction import Instruction
 from linear_genetic_programming._genetic_operations import GeneticOperations
 from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
 

@@ -66,7 +66,7 @@ class TwoInputBooleanFuncs:
         execute_results = [False] * TwoInputBooleanFuncs.number_of_samples
         for j in range(TwoInputBooleanFuncs.number_of_samples):
             execute_results[j] = mutProg.execute(GeneticOperations.N_VARIABLE, registers,
-                                                 TwoInputBooleanFuncs.sample_inputs)
+                                                 TwoInputBooleanFuncs.sample_inputs[j])
 
         for k in range(16):
             if execute_results[0] == TwoInputBooleanFuncs.phenotypes[k][0] and execute_results[1] == \
@@ -106,8 +106,9 @@ class TwoInputBooleanFuncs:
                     mutProg.seq[i].reg1_index = reg1[
                         m - (GeneticOperations.N_OPERATION - 1 + GeneticOperations.N_VARIABLE - 1)]
                 else:  # mutate calculation register 2
-                    mutProg.seq[i].reg2Index = reg2[m - (
+                    mutProg.seq[i].reg2_index = reg2[m - (
                             GeneticOperations.N_OPERATION - 1 + GeneticOperations.N_VARIABLE - 1 + GeneticOperations.N_VARIABLE + GeneticOperations.N_INPUT - 1)]
                 neibors.append(mutProg)
+                print(mutProg.toString())
         return neibors
 

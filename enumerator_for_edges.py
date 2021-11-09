@@ -5,6 +5,7 @@ from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanF
 
 class EnumeratorForEdges:
 
+    @staticmethod
     def main():
         f1 = open("pheno_matrix.txt", "w+")
         f2 = open("pheno_edges.txt", "w+")
@@ -20,5 +21,6 @@ class EnumeratorForEdges:
 test = Program()
 ins = Instruction()
 ins.makeDetermInstr(2, 0, 3, 2)
+print(ins.toString())
 test.makeDetermProg([ins])
-GeneticOperations.microMutation(test)
+print(test)

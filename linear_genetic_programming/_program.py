@@ -66,11 +66,11 @@ class Program:
         while i < len(self.seq):
             if self.seq[i].oper_index == self.OP_AND:
                 register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index]
-            elif self.seq[i].operIndex == self.OP_OR:
+            elif self.seq[i].oper_index == self.OP_OR:
                 register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index]
-            elif self.seq[i].operIndex == self.OP_NAND:
+            elif self.seq[i].oper_index == self.OP_NAND:
                 register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index])
-            elif self.seq[i].operIndex == self.OP_NOR:  # protected operation
+            elif self.seq[i].oper_index == self.OP_NOR:  # protected operation
                 register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index])
             i += 1
         return register_copy[0]
@@ -97,8 +97,16 @@ class Program:
         return strucIntronFreeProg
 
     def get_geno_robust(self):
-        neural_neibor_count = 0
+        neutral_neibor_count = 0
         neibors = TwoInputBooleanFuncs.generateOneStepNeibors(self)
+        neibor_pheno = []
+        prog_func = TwoInputBooleanFuncs.phenotype(self)
+        for i in range(len(neibors)):
+            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
+        for j in range(len(neibors)):
+            if neibor_pheno[j] == prog_func:
+                neutral_neibor_count += 1
+        self.robust = neutral_neibor_count
 
     def get_geno_evolva(self):
         neibor_non_neutral_func = []

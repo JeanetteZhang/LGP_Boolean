@@ -120,7 +120,7 @@ class TwoInputBooleanFuncs:
         reg1 = []
         reg2 = []
 
-        i = np.random.randint(prog.get_length)
+        i = np.random.randint(prog.get_length())
         m = np.random.randint(GeneticOperations.N_INSTRUCTION_ONESTEPMUT)
 
         for j in range(GeneticOperations.N_OPERATION):

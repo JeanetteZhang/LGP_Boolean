@@ -1,8 +1,5 @@
 from linear_genetic_programming._instruction import Instruction
 import copy
-import numpy as np
-from sklearn.metrics import accuracy_score
-from sklearn.utils.multiclass import unique_labels
 
 from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
 
@@ -22,8 +19,6 @@ class Program:
         contain a list of Instructions
     fitness: int
         set after evaluate function, contain calculated fitness
-    classificationError: int
-        set after evaluate function, number of misclassified samples
     effProgLen: int
         set after evaluate function, store effective program length
 

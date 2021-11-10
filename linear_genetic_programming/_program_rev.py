@@ -19,8 +19,6 @@ class Program:
         contain a list of Instructions
     fitness: int
         set after evaluate function, contain calculated fitness
-    classificationError: int
-        set after evaluate function, number of misclassified samples
     effProgLen: int
         set after evaluate function, store effective program length
 

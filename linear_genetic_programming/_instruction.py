@@ -13,12 +13,9 @@ class Instruction:
     numberOfVariable
     numberOfInput
     numberOfConstant
-    pConst, pBranch
 
     Attributes
     ----------
-    isBranch
-    branchType
     operIndex
         calculated using random number in len(numberOfOperation)
     returnRegIndex

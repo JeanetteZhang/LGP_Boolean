@@ -1,12 +1,12 @@
 from linear_genetic_programming._instruction import Instruction
 import copy
 
-from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
+from linear_genetic_programming._two_input_boolean_funcs_multi import TwoInputBooleanFuncsMulti
 
 
-class ProgramRev:
+class ProgramMulti:
     '''
-    A ProgramRev is a collection of instructions. An effective program means all Instruction
+    A Program is a collection of instructions. An effective program means all Instruction
     play a role in the return value. The return value goes through a sigmoid function to
     predict class
 
@@ -37,6 +37,7 @@ class ProgramRev:
         for i in range(length):
             ins.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
             self.seq.append(ins)
+        self.regulator = regulator
 
     def makeDetermProg(self, instrs, regulator = 0):
         for i in range(len(instrs)):
@@ -69,10 +70,13 @@ class ProgramRev:
             elif self.seq[i].oper_index == self.OP_NOR:  # protected operation
                 register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index])
             i += 1
-        return register_copy[0]
+        if self.regulator == 0:
+            return register_copy[0]
+        else:
+            return register_copy[1]
 
     def eliminateStrcIntron(self):
-        strucIntronFreeProg = ProgramRev()
+        strucIntronFreeProg = ProgramMulti()
         effInstr = []
         effReg = []
         effReg.append(0)
@@ -94,11 +98,11 @@ class ProgramRev:
 
     def get_geno_robust(self):
         neutral_neibor_count = 0
-        neibors = TwoInputBooleanFuncs.generateOneStepNeibors(self)
+        neibors = TwoInputBooleanFuncsMulti.generateOneStepNeibors(self, self.regulator)
         neibor_pheno = []
-        prog_func = TwoInputBooleanFuncs.phenotype(self)
+        prog_func = TwoInputBooleanFuncsMulti.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
+            neibor_pheno += [TwoInputBooleanFuncsMulti.phenotype(neibors[i])]
         for j in range(len(neibors)):
             if neibor_pheno[j] == prog_func:
                 neutral_neibor_count += 1
@@ -106,11 +110,11 @@ class ProgramRev:
 
     def get_geno_evolva(self):
         neibor_non_neutral_func = []
-        neibors = TwoInputBooleanFuncs.generateOneStepNeibors(self)
+        neibors = TwoInputBooleanFuncsMulti.generateOneStepNeibors(self, self.regulator)
         neibor_pheno = []
-        prog_func = TwoInputBooleanFuncs.phenotype(self)
+        prog_func = TwoInputBooleanFuncsMulti.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
+            neibor_pheno += [TwoInputBooleanFuncsMulti.phenotype(neibors[i])]
         for j in range(len(neibors)):
             if (neibor_pheno[j] != prog_func) and (neibor_pheno[j] not in neibor_non_neutral_func):
                 neibor_non_neutral_func += [neibor_pheno[j]]

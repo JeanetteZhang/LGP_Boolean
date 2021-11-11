@@ -7,7 +7,7 @@ from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanF
 class EnumeratorForEdges:
 
     N_PHENO = 16
-    pheno_connects = [[] * N_PHENO]
+    pheno_connects = [[0] * N_PHENO] * N_PHENO
 
     def generateOneStepNeiborsWithConnections(self, prog):
         neibors = []

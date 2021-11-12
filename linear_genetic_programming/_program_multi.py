@@ -98,7 +98,7 @@ class ProgramMulti:
 
     def get_geno_robust(self):
         neutral_neibor_count = 0
-        neibors = TwoInputBooleanFuncsMulti.generateOneStepNeibors(self, self.regulator)
+        neibors = TwoInputBooleanFuncsMulti.generateOneStepNeibors(self)
         neibor_pheno = []
         prog_func = TwoInputBooleanFuncsMulti.phenotype(self)
         for i in range(len(neibors)):
@@ -110,7 +110,7 @@ class ProgramMulti:
 
     def get_geno_evolva(self):
         neibor_non_neutral_func = []
-        neibors = TwoInputBooleanFuncsMulti.generateOneStepNeibors(self, self.regulator)
+        neibors = TwoInputBooleanFuncsMulti.generateOneStepNeibors(self)
         neibor_pheno = []
         prog_func = TwoInputBooleanFuncsMulti.phenotype(self)
         for i in range(len(neibors)):

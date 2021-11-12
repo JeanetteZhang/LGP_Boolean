@@ -81,4 +81,4 @@ class EnumeratorForEdges:
         for i in range(N_PHENO):
             for j in range(N_PHENO):
                 if pheno_connects[i][j] > 0:
-                    f2.write(str(i) + "\t" + str(j) + "\t" + pheno_connects[i][j] / 2)
+                    f2.write(str(i) + "\t" + str(j) + "\t" + str(pheno_connects[i][j] / 2))

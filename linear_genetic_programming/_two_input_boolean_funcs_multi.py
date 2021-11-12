@@ -64,20 +64,20 @@ class TwoInputBooleanFuncsMulti:
         mutProg = copy.copy(prog)
         mutProg.eliminateStrcIntron()
 
-        execute_results = [False] * TwoInputBooleanFuncs.number_of_samples
-        for j in range(TwoInputBooleanFuncs.number_of_samples):
+        execute_results = [False] * TwoInputBooleanFuncsMulti.number_of_samples
+        for j in range(TwoInputBooleanFuncsMulti.number_of_samples):
             execute_results[j] = mutProg.execute(GeneticOperations.N_VARIABLE, registers,
-                                                 TwoInputBooleanFuncs.sample_inputs[j])
+                                                 TwoInputBooleanFuncsMulti.sample_inputs[j])
 
         for k in range(16):
-            if execute_results[0] == TwoInputBooleanFuncs.phenotypes[k][0] and execute_results[1] == \
-                    TwoInputBooleanFuncs.phenotypes[k][1] and execute_results[2] == TwoInputBooleanFuncs.phenotypes[k][
-                2] and execute_results[3] == TwoInputBooleanFuncs.phenotypes[k][3]:
+            if execute_results[0] == TwoInputBooleanFuncsMulti.phenotypes[k][0] and execute_results[1] == \
+                    TwoInputBooleanFuncsMulti.phenotypes[k][1] and execute_results[2] == TwoInputBooleanFuncsMulti.phenotypes[k][
+                2] and execute_results[3] == TwoInputBooleanFuncsMulti.phenotypes[k][3]:
                 classLabel = k
         return classLabel
 
     @staticmethod
-    def generateOneStepNeibors(prog, regulator):
+    def generateOneStepNeibors(prog):
         neibors = []
         for i in range(prog.get_length()):
             operations = []
@@ -110,6 +110,9 @@ class TwoInputBooleanFuncsMulti:
                     mutProg.seq[i].reg2_index = reg2[m - (
                             GeneticOperations.N_OPERATION - 1 + GeneticOperations.N_VARIABLE - 1 + GeneticOperations.N_VARIABLE + GeneticOperations.N_INPUT - 1)]
                 neibors.append(mutProg)
+        reg_prog = copy.deepcopy(prog)
+        reg_prog.regulator = 1 - prog.regulator
+        neibors.append(reg_prog)
         return neibors
 
     @staticmethod
@@ -121,7 +124,11 @@ class TwoInputBooleanFuncsMulti:
         reg2 = []
 
         i = np.random.randint(prog.get_length())
-        m = np.random.randint(GeneticOperations.N_INSTRUCTION_ONESTEPMUT)
+        m = np.random.randint(GeneticOperations.N_INSTRUCTION_ONESTEPMUT + 1)
+        if m == GeneticOperations.N_INSTRUCTION_ONESTEPMUT:
+            reg_prog = copy.deepcopy(prog)
+            reg_prog.regulator = 1 - prog.regulator
+            return reg_prog
 
         for j in range(GeneticOperations.N_OPERATION):
             operations.append(j)

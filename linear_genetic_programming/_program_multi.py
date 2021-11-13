@@ -1,7 +1,7 @@
 from linear_genetic_programming._instruction import Instruction
 import copy
 
-from linear_genetic_programming._two_input_boolean_funcs_multi import TwoInputBooleanFuncsMulti
+from linear_genetic_programming._two_input_boolean_funcs_new import TwoInputBooleanFuncsNew
 
 
 class ProgramMulti:
@@ -98,11 +98,11 @@ class ProgramMulti:
 
     def get_geno_robust(self):
         neutral_neibor_count = 0
-        neibors = TwoInputBooleanFuncsMulti.generateOneStepNeibors(self)
+        neibors = TwoInputBooleanFuncsNew.generateOneStepNeibors(self)
         neibor_pheno = []
-        prog_func = TwoInputBooleanFuncsMulti.phenotype(self)
+        prog_func = TwoInputBooleanFuncsNew.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncsMulti.phenotype(neibors[i])]
+            neibor_pheno += [TwoInputBooleanFuncsNew.phenotype(neibors[i])]
         for j in range(len(neibors)):
             if neibor_pheno[j] == prog_func:
                 neutral_neibor_count += 1
@@ -110,11 +110,11 @@ class ProgramMulti:
 
     def get_geno_evolva(self):
         neibor_non_neutral_func = []
-        neibors = TwoInputBooleanFuncsMulti.generateOneStepNeibors(self)
+        neibors = TwoInputBooleanFuncsNew.generateOneStepNeibors(self)
         neibor_pheno = []
-        prog_func = TwoInputBooleanFuncsMulti.phenotype(self)
+        prog_func = TwoInputBooleanFuncsNew.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncsMulti.phenotype(neibors[i])]
+            neibor_pheno += [TwoInputBooleanFuncsNew.phenotype(neibors[i])]
         for j in range(len(neibors)):
             if (neibor_pheno[j] != prog_func) and (neibor_pheno[j] not in neibor_non_neutral_func):
                 neibor_non_neutral_func += [neibor_pheno[j]]

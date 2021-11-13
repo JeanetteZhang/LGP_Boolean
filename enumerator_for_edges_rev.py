@@ -1,11 +1,11 @@
 import copy
 
-from linear_genetic_programming._program_multi import ProgramMulti
+from linear_genetic_programming._program_rev import ProgramRev
 from linear_genetic_programming._genetic_operations import GeneticOperations
 from linear_genetic_programming._two_input_boolean_funcs_new import TwoInputBooleanFuncsNew
 
 
-class EnumeratorForEdgesMulti:
+class EnumeratorForEdgesRev:
 
     N_PHENO = 16
     pheno_connects = [[0] * N_PHENO] * N_PHENO
@@ -60,7 +60,7 @@ if __name__ == '__main__':
         f1.write("%d\t" % i)
     f2.write("pheno1\tpheno2\tweight\n")
 
-    enumerator = EnumeratorForEdgesMulti()
+    enumerator = EnumeratorForEdgesRev()
     for i in range(num_of_instr):
         for j in range(num_of_instr):
             for k in range(num_of_instr):
@@ -71,20 +71,20 @@ if __name__ == '__main__':
                     instrs.append(instructions[k])
                     instrs.append(instructions[l])
 
-                    prog1 = ProgramMulti()
+                    prog1 = ProgramRev()
                     prog1.makeDetermProg(instrs, 0)
                     enumerator.generateOneStepNeiborsWithConnections(prog1)
 
-                    prog2 = ProgramMulti()
+                    prog2 = ProgramRev()
                     prog2.makeDetermProg(instrs, 1)
                     enumerator.generateOneStepNeiborsWithConnections(prog2)
 
-    for i in range(EnumeratorForEdgesMulti.N_PHENO):
+    for i in range(EnumeratorForEdgesRev.N_PHENO):
         f1.write(str(i) + "\t")
-        for j in range(EnumeratorForEdgesMulti.N_PHENO):
+        for j in range(EnumeratorForEdgesRev.N_PHENO):
             f1.write(str(enumerator.pheno_connects[i][j]) + "\t")
 
-    for i in range(EnumeratorForEdgesMulti.N_PHENO):
-        for j in range(EnumeratorForEdgesMulti.N_PHENO):
+    for i in range(EnumeratorForEdgesRev.N_PHENO):
+        for j in range(EnumeratorForEdgesRev.N_PHENO):
             if enumerator.pheno_connects[i][j] > 0:
                 f2.write(str(i) + "\t" + str(j) + "\t" + str(enumerator.pheno_connects[i][j] / 2) + "\n")

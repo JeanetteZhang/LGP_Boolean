@@ -58,17 +58,30 @@ class ProgramRev:
         register_copy = copy.deepcopy(register)
         for i in range(len(input)):
             register_copy[i + numberOfVariable] = input[i]
-        i = 0
-        while i < len(self.seq):
-            if self.seq[i].oper_index == self.OP_AND:
-                register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index]
-            elif self.seq[i].oper_index == self.OP_OR:
-                register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index]
-            elif self.seq[i].oper_index == self.OP_NAND:
-                register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index])
-            elif self.seq[i].oper_index == self.OP_NOR:  # protected operation
-                register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index])
-            i += 1
+        if self.regulator == 0:
+            i = 0
+            while i < len(self.seq):
+                if self.seq[i].oper_index == self.OP_AND:
+                    register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index]
+                elif self.seq[i].oper_index == self.OP_OR:
+                    register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index]
+                elif self.seq[i].oper_index == self.OP_NAND:
+                    register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index])
+                elif self.seq[i].oper_index == self.OP_NOR:  # protected operation
+                    register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index])
+                i += 1
+        else:
+            i = len(self.seq) - 1
+            while i >= 0:
+                if self.seq[i].oper_index == self.OP_AND:
+                    register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index]
+                elif self.seq[i].oper_index == self.OP_OR:
+                    register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index]
+                elif self.seq[i].oper_index == self.OP_NAND:
+                    register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index])
+                elif self.seq[i].oper_index == self.OP_NOR:  # protected operation
+                    register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index])
+                i -= 1
         return register_copy[0]
 
     def eliminateStrcIntron(self):

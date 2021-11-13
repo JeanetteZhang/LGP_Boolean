@@ -1,4 +1,4 @@
-from linear_genetic_programming._program_multi import ProgramMulti
+from linear_genetic_programming._program_rev import ProgramRev
 from linear_genetic_programming._statistics import Statistics
 from linear_genetic_programming._two_input_boolean_funcs_new import TwoInputBooleanFuncsNew
 
@@ -28,13 +28,13 @@ if __name__ == '__main__':
                     instrs.append(instructions[k])
                     instrs.append(instructions[l])
 
-                    prog1 = ProgramMulti()
+                    prog1 = ProgramRev()
                     prog1.makeDetermProg(instrs, 0)
 
                     function_class1 = TwoInputBooleanFuncsNew.phenotype(prog1)
                     fun_class.append(function_class1)
 
-                    prog2 = ProgramMulti()
+                    prog2 = ProgramRev()
                     prog2.makeDetermProg(instrs, 1)
 
                     function_class2 = TwoInputBooleanFuncsNew.phenotype(prog2)

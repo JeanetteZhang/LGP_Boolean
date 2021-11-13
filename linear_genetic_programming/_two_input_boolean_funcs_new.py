@@ -5,7 +5,7 @@ from linear_genetic_programming._genetic_operations import GeneticOperations
 from linear_genetic_programming._instruction import Instruction
 
 
-class TwoInputBooleanFuncsMulti:
+class TwoInputBooleanFuncsNew:
     falseFunction = (False, False, False, False)  # 0
     andFunction = (False, False, False, True)  # 1
     notYandXFunction = (False, False, True, False)  # 2
@@ -64,15 +64,15 @@ class TwoInputBooleanFuncsMulti:
         mutProg = copy.copy(prog)
         mutProg.eliminateStrcIntron()
 
-        execute_results = [False] * TwoInputBooleanFuncsMulti.number_of_samples
-        for j in range(TwoInputBooleanFuncsMulti.number_of_samples):
+        execute_results = [False] * TwoInputBooleanFuncsNew.number_of_samples
+        for j in range(TwoInputBooleanFuncsNew.number_of_samples):
             execute_results[j] = mutProg.execute(GeneticOperations.N_VARIABLE, registers,
-                                                 TwoInputBooleanFuncsMulti.sample_inputs[j])
+                                                 TwoInputBooleanFuncsNew.sample_inputs[j])
 
         for k in range(16):
-            if execute_results[0] == TwoInputBooleanFuncsMulti.phenotypes[k][0] and execute_results[1] == \
-                    TwoInputBooleanFuncsMulti.phenotypes[k][1] and execute_results[2] == TwoInputBooleanFuncsMulti.phenotypes[k][
-                2] and execute_results[3] == TwoInputBooleanFuncsMulti.phenotypes[k][3]:
+            if execute_results[0] == TwoInputBooleanFuncsNew.phenotypes[k][0] and execute_results[1] == \
+                    TwoInputBooleanFuncsNew.phenotypes[k][1] and execute_results[2] == TwoInputBooleanFuncsNew.phenotypes[k][
+                2] and execute_results[3] == TwoInputBooleanFuncsNew.phenotypes[k][3]:
                 classLabel = k
         return classLabel
 

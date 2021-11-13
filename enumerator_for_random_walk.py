@@ -76,7 +76,7 @@ if __name__ == "__main__":
         random_walk = EnumeratorForRandomWalk()
         final_dict_conv[i] = random_walk.get_dict(i)[0]
         final_dict_rev[i] = random_walk.get_dict(i)[1]
-        final_dict_multi[i] = random_walk.get_dict(2)
+        final_dict_multi[i] = random_walk.get_dict(i)[2]
     print(final_dict_conv)
     print(final_dict_rev)
     print(final_dict_multi)

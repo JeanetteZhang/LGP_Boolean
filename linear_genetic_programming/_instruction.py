@@ -5,7 +5,8 @@ class Instruction:
     '''
     Instruction is the lowest level in classification model. It contains a return register,
     an operation and two calculation registers. For example, "r[0] = r[2] NAND r[3]", r[0] is
-    a return register, r[2] and r[3] are calculation registers. 'NAND' is operation.
+    a return register, r[1] is a calculation register, r[2] and r[3] are input registers.
+    'NAND' is operation register.
 
     Parameters
     ----------

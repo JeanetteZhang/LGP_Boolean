@@ -7,8 +7,7 @@ from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanF
 class Program:
     '''
     A Program is a collection of instructions. An effective program means all Instruction
-    play a role in the return value. The return value goes through a sigmoid function to
-    predict class
+    play a role in the return value.
 
     Parameters
     ----------
@@ -17,10 +16,6 @@ class Program:
     ----------
     seq : python list
         contain a list of Instructions
-    fitness: int
-        set after evaluate function, contain calculated fitness
-    effProgLen: int
-        set after evaluate function, store effective program length
 
     '''
     OP_AND = 0

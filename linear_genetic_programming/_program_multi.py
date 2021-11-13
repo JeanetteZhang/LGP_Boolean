@@ -6,9 +6,8 @@ from linear_genetic_programming._two_input_boolean_funcs_new import TwoInputBool
 
 class ProgramMulti:
     '''
-    A Program is a collection of instructions. An effective program means all Instruction
-    play a role in the return value. The return value goes through a sigmoid function to
-    predict class
+    A ProgramMulti is a collection of instructions which alternates the return register. An effective program (multi)
+    means all Instruction play a role in the return value, together with a regulator indicates its return register (default to be 0).
 
     Parameters
     ----------
@@ -17,10 +16,8 @@ class ProgramMulti:
     ----------
     seq : python list
         contain a list of Instructions
-    fitness: int
-        set after evaluate function, contain calculated fitness
-    effProgLen: int
-        set after evaluate function, store effective program length
+    regulator: int
+        indicates which calculation register to return
 
     '''
     OP_AND = 0

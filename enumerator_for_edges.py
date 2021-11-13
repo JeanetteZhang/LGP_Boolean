@@ -45,40 +45,38 @@ class EnumeratorForEdges:
                 self.pheno_connects[TwoInputBooleanFuncs.phenotype(prog)][TwoInputBooleanFuncs.phenotype(mutProg)] += 1
                 self.pheno_connects[TwoInputBooleanFuncs.phenotype(mutProg)][TwoInputBooleanFuncs.phenotype(prog)] += 1
 
-    if __name__ == '__main__':
-        f1 = open("pheno_matrix.txt", "w+")
-        f2 = open("pheno_edges.txt", "w+")
-        instructions = TwoInputBooleanFuncs.generateInstructions()
-        num_of_instr = len(instructions)
-        
-        f1.write("phenotype\t")
-        for i in range(16):
-            f1.write("%d\t" % i)
-        f2.write("pheno1\tpheno2\tweight")
+if __name__ == '__main__':
+    f1 = open("pheno_matrix.txt", "w+")
+    f2 = open("pheno_edges.txt", "w+")
+    instructions = TwoInputBooleanFuncs.generateInstructions()
+    num_of_instr = len(instructions)
 
-        for i in range(N_PHENO):
-            for j in range(N_PHENO):
-                pheno_connects[i][j] = pheno_connects[j][i] = 0
+    f1.write("phenotype\t")
+    for i in range(16):
+        f1.write("%d\t" % i)
+    f2.write("pheno1\tpheno2\tweight\n")
 
-        for i in range(num_of_instr):
-            for j in range(num_of_instr):
-                for k in range(num_of_instr):
-                    for l in range(num_of_instr):
-                        instrs = []
-                        instrs.append(instructions[i])
-                        instrs.append(instructions[j])
-                        instrs.append(instructions[k])
-                        instrs.append(instructions[l])
+    enumerator = EnumeratorForEdges()
+    for i in range(num_of_instr):
+        for j in range(num_of_instr):
+            for k in range(num_of_instr):
+                for l in range(num_of_instr):
+                    instrs = []
+                    instrs.append(instructions[i])
+                    instrs.append(instructions[j])
+                    instrs.append(instructions[k])
+                    instrs.append(instructions[l])
 
-                        prog = Program()
-                        prog.makeDetermProg(instrs)
+                    prog = Program()
+                    prog.makeDetermProg(instrs)
+                    enumerator.generateOneStepNeiborsWithConnections(prog)
 
-        for i in range(N_PHENO):
-            f1.write(str(i) + "\t")
-            for j in range(N_PHENO):
-                f1.write(str(pheno_connects[i][j]) + "\t")
+    for i in range(EnumeratorForEdges.N_PHENO):
+        f1.write(str(i) + "\t")
+        for j in range(EnumeratorForEdges.N_PHENO):
+            f1.write(str(enumerator.pheno_connects[i][j]) + "\t")
 
-        for i in range(N_PHENO):
-            for j in range(N_PHENO):
-                if pheno_connects[i][j] > 0:
-                    f2.write(str(i) + "\t" + str(j) + "\t" + str(pheno_connects[i][j] / 2))
+    for i in range(EnumeratorForEdges.N_PHENO):
+        for j in range(EnumeratorForEdges.N_PHENO):
+            if enumerator.pheno_connects[i][j] > 0:
+                f2.write(str(i) + "\t" + str(j) + "\t" + str(enumerator.pheno_connects[i][j] / 2) + "\n")

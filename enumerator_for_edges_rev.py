@@ -11,7 +11,6 @@ class EnumeratorForEdgesRev:
     pheno_connects = [[0] * N_PHENO] * N_PHENO
 
     def generateOneStepNeiborsWithConnections(self, prog):
-        neibors = []
         for i in range(prog.get_length()):
             operations = []
             return_reg = []

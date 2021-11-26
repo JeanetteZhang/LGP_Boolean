@@ -86,15 +86,15 @@ class TwoInputBooleanFuncsNew:
             reg2 = []
             for j in range(GeneticOperations.N_OPERATION):
                 operations.append(j)
-            operations = list(filter((prog.seq[i].oper_index).__ne__, operations))
+            operations = list(filter(float(prog.seq[i].oper_index).__ne__, operations))
             for j in range(GeneticOperations.N_VARIABLE):
                 return_reg.append(j)
-            return_reg = list(filter((prog.seq[i].returnRegIndex).__ne__, return_reg))
+            return_reg = list(filter(float(prog.seq[i].returnRegIndex).__ne__, return_reg))
             for j in range(GeneticOperations.N_INPUT + GeneticOperations.N_VARIABLE):
                 reg1.append(j)
                 reg2.append(j)
-            reg1 = list(filter((prog.seq[i].reg1_index).__ne__, reg1))
-            reg2 = list(filter((prog.seq[i].reg2_index).__ne__, reg2))
+            reg1 = list(filter(float(prog.seq[i].reg1_index).__ne__, reg1))
+            reg2 = list(filter(float(prog.seq[i].reg2_index).__ne__, reg2))
             for m in range(GeneticOperations.N_INSTRUCTION_ONESTEPMUT):
                 mutProg = copy.deepcopy(prog)
                 if m < GeneticOperations.N_OPERATION - 1:  # mutate operation
@@ -132,15 +132,15 @@ class TwoInputBooleanFuncsNew:
 
         for j in range(GeneticOperations.N_OPERATION):
             operations.append(j)
-        operations = list(filter((prog.seq[i].oper_index).__ne__, operations))
+        operations = list(filter(float(prog.seq[i].oper_index).__ne__, operations))
         for j in range(GeneticOperations.N_VARIABLE):
             return_reg.append(j)
-        return_reg = list(filter((prog.seq[i].returnRegIndex).__ne__, return_reg))
+        return_reg = list(filter(float(prog.seq[i].returnRegIndex).__ne__, return_reg))
         for j in range(GeneticOperations.N_INPUT + GeneticOperations.N_VARIABLE):
             reg1.append(j)
             reg2.append(j)
-        reg1 = list(filter((prog.seq[i].reg1_index).__ne__, reg1))
-        reg2 = list(filter((prog.seq[i].reg2_index).__ne__, reg2))
+        reg1 = list(filter(float(prog.seq[i].reg1_index).__ne__, reg1))
+        reg2 = list(filter(float(prog.seq[i].reg2_index).__ne__, reg2))
 
         if m < GeneticOperations.N_OPERATION - 1:  # mutate operation
             mutProg.seq[i].oper_index = operations[m]

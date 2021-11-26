@@ -58,8 +58,8 @@ class GraphicTool:
         ax.set_xticklabels(x, rotation=0)
         ax.set_axisbelow(True)
         ax.set_xticks(xlocations)
-        plt.xlabel('Phenotypes')
-        plt.ylabel('Walk Steps')
+        plt.xlabel('Target Phenotype')
+        plt.ylabel('Number of Steps')
         plt.title('Plots For Random Walk')
 
         positions_group1 = [x - (width + 0.01) for x in xlocations]
@@ -104,7 +104,7 @@ class GraphicTool:
         plt.plot([], c='#7fcdbb', label='Reversible')
         plt.plot([], c='#2c7fb8', label='Multi-output')
         # show a legend on the plot
-        plt.legend()
+        plt.legend(loc = 9, prop={'size': 10})
         # Display a figure.
         plt.show()
 

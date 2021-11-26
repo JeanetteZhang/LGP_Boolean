@@ -1,5 +1,6 @@
 from linear_genetic_programming._instruction import Instruction
 import copy
+from operator import xor
 
 from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
 
@@ -109,6 +110,16 @@ class Program:
             if (neibor_pheno[j] != prog_func) and (neibor_pheno[j] not in neibor_non_neutral_func):
                 neibor_non_neutral_func += [neibor_pheno[j]]
         self.evolva = len(neibor_non_neutral_func)
+
+    def fitness(self, target_pheno):
+        prog_func = TwoInputBooleanFuncs.phenotypes[TwoInputBooleanFuncs.phenotype(self)]
+        target_func = TwoInputBooleanFuncs.phenotypes[target_pheno]
+        fit_list = [ai == bi for ai,bi in zip(prog_func, target_func)]
+        fit = 0
+        for i in fit_list:
+            if i:
+                fit += 1
+        return fit
 
     def get_length(self):
         return len(self.seq)

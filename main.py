@@ -4,3 +4,4 @@ if __name__ == '__main__':
     prog = Program()
     prog.makeRandomeProg(4, 2, 2, 4)
     print(TwoInputBooleanFuncs.phenotype(prog))
+    print(prog.fitness(1))

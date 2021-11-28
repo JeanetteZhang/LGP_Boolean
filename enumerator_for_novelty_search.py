@@ -57,4 +57,4 @@ if __name__ == "__main__":
         print(i)
         ns = NoveltySearch()
         res[i] = ns.get_dict(i)
-    print(ns.get_avg(res))
+    print(NoveltySearch.get_avg(res))

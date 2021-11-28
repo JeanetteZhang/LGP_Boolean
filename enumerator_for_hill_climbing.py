@@ -5,10 +5,10 @@ from linear_genetic_programming._program import Program
 from linear_genetic_programming._statistics import Statistics
 from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
 class HillClimbing:
-    RANDOM_WALK_STEP = 10000
+    RANDOM_WALK_STEP = 100
     def get_dict(self, target_pheno):
         res_dict = {}
-        for i in range(10):
+        for i in range(100):
             sequence = []
             for m in range(4):
                 instr = Instruction()
@@ -38,12 +38,25 @@ class HillClimbing:
                         break
             if not find:
                 res_dict.get(pheno_cur, []) + [self.RANDOM_WALK_STEP + 1]
-        print(res_dict)
         return res_dict
 
-if __name__ == "main":
+    @staticmethod
+    def get_avg(dic):
+        avg = {}
+        for key1, value1 in dic.items():
+            for key2, value2 in value1.items():
+                avg[(key1, key2)] = Statistics.mean(value2)
+        return avg
+
+if __name__ == "__main__":
     final_dict = {}
+    res = {}
     for i in range(16):
         print(i)
         hill_climbing = HillClimbing()
-        print(hill_climbing.get_dict(5))
+        res[i] = hill_climbing.get_dict(i)
+    print(HillClimbing.get_avg(res))
+
+'''
+{(0, 15): 0.0, (0, 0): 0.0, (0, 12): 0.5, (0, 8): 0.0, (0, 5): 0.0, (0, 4): 1.0, (0, 10): 0.0, (1, 1): 0.0, (1, 14): 0.0, (1, 7): 0.0, (1, 0): 0.0, (2, 2): 0.0, (3, 3): 0.0, (3, 0): 0.0, (3, 11): 0.0, (4, 4): 0.0, (4, 12): 0.0, (5, 5): 0.0, (5, 7): 0.0, (5, 4): 0.0, (5, 15): 0.0, (5, 1): 0.0, (7, 7): 0.0, (8, 8): 0.0, (10, 10): 0.0, (10, 2): 0.0, (11, 11): 0.0, (11, 10): 0.0, (12, 12): 0.0, (12, 15): 0.0, (12, 4): 0.0, (13, 15): 0.0, (13, 13): 0.0, (14, 0): 0.0, (14, 14): 0.0, (14, 1): 1.0, (15, 15): 0.0, (15, 13): 0.5, (15, 11): 0.0, (15, 14): 0.0, (15, 10): 0.0, (15, 0): 1.0, (15, 5): 0.0}
+'''

@@ -5,10 +5,10 @@ from linear_genetic_programming._program import Program
 from linear_genetic_programming._statistics import Statistics
 from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
 class HillClimbing:
-    RANDOM_WALK_STEP = 100
+    RANDOM_WALK_STEP = 10000
     def get_dict(self, target_pheno):
         res_dict = {}
-        for i in range(100):
+        for i in range(1000):
             sequence = []
             for m in range(4):
                 instr = Instruction()
@@ -22,20 +22,16 @@ class HillClimbing:
             prog_cur = copy.deepcopy(prog)
             find = False
             j = 0
-            while j < self.RANDOM_WALK_STEP and not find:
-                neibors = TwoInputBooleanFuncs.generateOneStepNeibors(prog_cur)
-                m = 0
-                while m < len(neibors):
-                    if TwoInputBooleanFuncs.phenotype(neibors[m]) == target_pheno:
-                        res_dict[pheno_cur] = res_dict.get(pheno_cur, []) + [j]
-                        find = True
-                        break
-                    if neibors[m].fitness(target_pheno) < prog_cur.fitness(target_pheno):
-                        m += 1
-                    else:
-                        j += 1
-                        prog_cur = neibors[m]
-                        break
+            while j < self.RANDOM_WALK_STEP:
+                neibor = TwoInputBooleanFuncs.one_step_mutation(prog_cur)
+                while neibor.fitness(target_pheno) < prog_cur.fitness(target_pheno):
+                    neibor = TwoInputBooleanFuncs.one_step_mutation(prog_cur)
+                if TwoInputBooleanFuncs.phenotype(neibor) == target_pheno:
+                    res_dict[pheno_cur] = res_dict.get(pheno_cur, []) + [j]
+                    find = True
+                    break
+                j += 1
+                prog_cur = neibor
             if not find:
                 res_dict.get(pheno_cur, []) + [self.RANDOM_WALK_STEP + 1]
         return res_dict

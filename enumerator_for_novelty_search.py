@@ -36,7 +36,6 @@ class NoveltySearch:
                 visited[TwoInputBooleanFuncs.phenotype(neibor)] = True
                 prog_cur = neibor
             if not find:
-                print("yes")
                 res_dict.get(pheno_cur, []) + [self.RANDOM_WALK_STEP + 1]
         return res_dict
 

@@ -13,7 +13,7 @@ class EnumeratorForRandomWalk:
         res_dict_conv = {}
         res_dict_rev = {}
         res_dict_multi = {}
-        for i in range(10000):
+        for i in range(1000):
             sequence = []
             for m in range(4):
                 instr = Instruction()

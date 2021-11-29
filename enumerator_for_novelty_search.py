@@ -23,18 +23,16 @@ class NoveltySearch:
             prog_cur = copy.deepcopy(prog)
             find = False
             visited[pheno_cur] = True
-            j = 0
-            while j < self.RANDOM_WALK_STEP:
-                neibor = TwoInputBooleanFuncs.one_step_mutation(prog_cur)
-                while visited[TwoInputBooleanFuncs.phenotype(neibor)] and TwoInputBooleanFuncs.phenotype(neibor) != TwoInputBooleanFuncs.phenotype(prog_cur):
-                    neibor = TwoInputBooleanFuncs.one_step_mutation(prog_cur)
-                if TwoInputBooleanFuncs.phenotype(neibor) == target_pheno:
+            for j in range(self.RANDOM_WALK_STEP):
+                prog_update = TwoInputBooleanFuncs.one_step_mutation(prog_cur)
+                while visited[TwoInputBooleanFuncs.phenotype(prog_update)] and TwoInputBooleanFuncs.phenotype(
+                        prog_update) != TwoInputBooleanFuncs.phenotype(prog_cur):
+                    prog_update = TwoInputBooleanFuncs.one_step_mutation(prog_cur)
+                if TwoInputBooleanFuncs.phenotype(prog_update) == target_pheno:
                     res_dict[pheno_cur] = res_dict.get(pheno_cur, []) + [j]
                     find = True
                     break
-                j += 1
-                visited[TwoInputBooleanFuncs.phenotype(neibor)] = True
-                prog_cur = neibor
+                prog_cur = prog_update
             if not find:
                 res_dict.get(pheno_cur, []) + [self.RANDOM_WALK_STEP + 1]
         return res_dict

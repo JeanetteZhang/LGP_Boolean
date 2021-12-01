@@ -6,7 +6,7 @@ from linear_genetic_programming._program import Program
 from linear_genetic_programming._statistics import Statistics
 from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
 class HC:
-    RANDOM_WALK_STEP = 10
+    RANDOM_WALK_STEP = 1000
     def get_dict(self, target_pheno):
         res_dict_conv = {}
         res_dict_nove = {}

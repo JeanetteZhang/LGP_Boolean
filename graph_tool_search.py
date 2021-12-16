@@ -14,7 +14,7 @@ class GraphicToolSearch:
         data_groups = []
         q = []
         for m in GraphicToolSearch.AVG_RAN.keys():
-            if m in GraphicToolSearch.AVG_NOV.keys() and m in GraphicToolSearch.AVG_MULT.keys():
+            if m in GraphicToolSearch.AVG_NOV.keys() and m in GraphicToolSearch.AVG_HILL.keys():
                 q.append(m)
         q.sort()
         con = []

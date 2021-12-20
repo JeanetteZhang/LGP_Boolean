@@ -106,7 +106,7 @@ if __name__ == "__main__":
     time_hill = 0
     for i in range(16):
         print(i)
-        hill_climbing = HC()
+        hill_climbing = ER()
         res_ran[i] = hill_climbing.get_dict(i)[0]
         res_nove[i] = hill_climbing.get_dict(i)[1]
         res_hill[i] = hill_climbing.get_dict(i)[2]

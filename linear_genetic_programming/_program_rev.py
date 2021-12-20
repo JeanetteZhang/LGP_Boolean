@@ -1,7 +1,7 @@
 from linear_genetic_programming._instruction import Instruction
 import copy
 
-from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
+from linear_genetic_programming._two_input_boolean_funcs_new import TwoInputBooleanFuncsNew
 
 
 class ProgramRev:
@@ -107,11 +107,11 @@ class ProgramRev:
 
     def get_geno_robust(self):
         neutral_neibor_count = 0
-        neibors = TwoInputBooleanFuncs.generateOneStepNeibors(self)
+        neibors = TwoInputBooleanFuncsNew.generateOneStepNeibors(self)
         neibor_pheno = []
-        prog_func = TwoInputBooleanFuncs.phenotype(self)
+        prog_func = TwoInputBooleanFuncsNew.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
+            neibor_pheno += [TwoInputBooleanFuncsNew.phenotype(neibors[i])]
         for j in range(len(neibors)):
             if neibor_pheno[j] == prog_func:
                 neutral_neibor_count += 1
@@ -119,15 +119,25 @@ class ProgramRev:
 
     def get_geno_evolva(self):
         neibor_non_neutral_func = []
-        neibors = TwoInputBooleanFuncs.generateOneStepNeibors(self)
+        neibors = TwoInputBooleanFuncsNew.generateOneStepNeibors(self)
         neibor_pheno = []
-        prog_func = TwoInputBooleanFuncs.phenotype(self)
+        prog_func = TwoInputBooleanFuncsNew.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
+            neibor_pheno += [TwoInputBooleanFuncsNew.phenotype(neibors[i])]
         for j in range(len(neibors)):
             if (neibor_pheno[j] != prog_func) and (neibor_pheno[j] not in neibor_non_neutral_func):
                 neibor_non_neutral_func += [neibor_pheno[j]]
         self.evolva = len(neibor_non_neutral_func)
+
+    def fitness(self, target_pheno):
+        prog_func = TwoInputBooleanFuncsNew.phenotypes[TwoInputBooleanFuncsNew.phenotype(self)]
+        target_func = TwoInputBooleanFuncsNew.phenotypes[target_pheno]
+        fit_list = [ai == bi for ai,bi in zip(prog_func, target_func)]
+        fit = 0
+        for i in fit_list:
+            if i:
+                fit += 1
+        return fit
 
     def get_length(self):
         return len(self.seq)

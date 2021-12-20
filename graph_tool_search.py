@@ -1,3 +1,4 @@
+import math
 from queue import PriorityQueue
 
 import matplotlib.pyplot as plt
@@ -25,13 +26,16 @@ class GraphicToolSearch:
             cur_data_con = []
             cur_data_rev = []
             cur_data_multi = []
+            '''
             if i == 6 or i == 9:
                 continue
+            '''
             for j in q:
                 if j[0] == i:
-                    cur_data_con.append(GraphicToolSearch.AVG_RAN[j])
-                    cur_data_rev.append(GraphicToolSearch.AVG_NOV[j])
-                    cur_data_multi.append(GraphicToolSearch.AVG_HILL[j])
+                    cur_data_con.append(math.log(GraphicToolSearch.AVG_RAN[j]))
+                    cur_data_rev.append(0 if GraphicToolSearch.AVG_NOV[j] == 0  else math.log(GraphicToolSearch.AVG_NOV[j]))
+                    cur_data_multi.append(0 if GraphicToolSearch.AVG_HILL[j] == 0  else math.log(GraphicToolSearch.AVG_HILL[j]))
+
             con.append(cur_data_con)
             rev.append(cur_data_rev)
             multi.append(cur_data_multi)
@@ -42,8 +46,10 @@ class GraphicToolSearch:
 
         x = []
         for s in range(16):
+            '''
             if s == 6 or s == 9:
                 continue
+            '''
             x.append(s)
 
         print(len(data_groups[0]))
@@ -51,7 +57,7 @@ class GraphicToolSearch:
         width = 0.3
         symbol = 'r+'
         ymin = 0
-        ymax = 180
+        ymax = 10
 
         ax = plt.gca()
         ax.set_ylim(ymin, ymax)
@@ -104,7 +110,7 @@ class GraphicToolSearch:
         plt.plot([], c='#7fcdbb', label='Novelty Search')
         plt.plot([], c='#2c7fb8', label='Hill Climbing')
         # show a legend on the plot
-        plt.legend(loc = 9, prop={'size': 10})
+        plt.legend(loc = 1, prop={'size': 10})
         # Display a figure.
         plt.show()
 

@@ -117,5 +117,15 @@ class ProgramMulti:
                 neibor_non_neutral_func += [neibor_pheno[j]]
         self.evolva = len(neibor_non_neutral_func)
 
+    def fitness(self, target_pheno):
+        prog_func = TwoInputBooleanFuncsNew.phenotypes[TwoInputBooleanFuncsNew.phenotype(self)]
+        target_func = TwoInputBooleanFuncsNew.phenotypes[target_pheno]
+        fit_list = [ai == bi for ai,bi in zip(prog_func, target_func)]
+        fit = 0
+        for i in fit_list:
+            if i:
+                fit += 1
+        return fit
+
     def get_length(self):
         return len(self.seq)

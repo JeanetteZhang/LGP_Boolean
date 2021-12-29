@@ -93,7 +93,7 @@ class ER:
         avg = {}
         for key1, value1 in dic.items():
             for key2, value2 in value1.items():
-                avg[(key1, key2)] = Statistics.mean(value2)
+                avg[(key1, key2)] = [Statistics.mean(value2), len(value2)]
         return avg
 
 if __name__ == "__main__":

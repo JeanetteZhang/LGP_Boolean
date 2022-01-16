@@ -26,15 +26,22 @@ class GraphicToolNov:
             cur_data_con = []
             cur_data_rev = []
             cur_data_multi = []
-            '''
+
             if i == 6 or i == 9:
                 continue
+
             '''
             for j in q:
                 if j[0] == i:
                     cur_data_con.append(0 if GraphicToolNov.AVG_CON[j] == 0  else math.log(GraphicToolNov.AVG_CON[j]))
                     cur_data_rev.append(0 if GraphicToolNov.AVG_REV[j] == 0  else math.log(GraphicToolNov.AVG_REV[j]))
                     cur_data_multi.append(0 if GraphicToolNov.AVG_MULT[j] == 0  else math.log(GraphicToolNov.AVG_MULT[j]))
+            '''
+            for j in q:
+                if j[0] == i:
+                    cur_data_con.append(GraphicToolNov.AVG_CON[j])
+                    cur_data_rev.append(GraphicToolNov.AVG_REV[j])
+                    cur_data_multi.append(GraphicToolNov.AVG_MULT[j])
 
             con.append(cur_data_con)
             rev.append(cur_data_rev)
@@ -46,10 +53,10 @@ class GraphicToolNov:
 
         x = []
         for s in range(16):
-            '''
+
             if s == 6 or s == 9:
                 continue
-            '''
+
             x.append(s)
 
         print(len(data_groups[0]))
@@ -57,7 +64,7 @@ class GraphicToolNov:
         width = 0.3
         symbol = 'r+'
         ymin = 0
-        ymax = 10
+        ymax = 180
 
         ax = plt.gca()
         ax.set_ylim(ymin, ymax)
@@ -66,7 +73,7 @@ class GraphicToolNov:
         ax.set_xticks(xlocations)
         plt.xlabel('Target Phenotype')
         plt.ylabel('Number of Steps')
-        plt.title('Plots For Search')
+        plt.title('Plots For Novelty Search in Three Modes')
 
         positions_group1 = [x - (width + 0.01) for x in xlocations]
         positions_group2 = xlocations
@@ -74,7 +81,7 @@ class GraphicToolNov:
 
         ax1 = plt.boxplot(data_groups[0],
                     labels=[''] * len(x),
-                    sym=symbol,
+                    sym='',
                     positions=positions_group1,
                     patch_artist=True,
                     widths=width,
@@ -82,7 +89,7 @@ class GraphicToolNov:
 
         ax2 = plt.boxplot(data_groups[1],
                     labels=x,
-                    sym=symbol,
+                    sym='',
                     positions=positions_group2,
                     patch_artist=True,
                     widths=width,
@@ -90,7 +97,7 @@ class GraphicToolNov:
 
         ax3 = plt.boxplot(data_groups[2],
                     labels=[''] * len(x),
-                    sym=symbol,
+                    sym='',
                     positions=positions_group3,
                     patch_artist=True,
                     widths=width,
@@ -106,11 +113,11 @@ class GraphicToolNov:
         set_box_color(ax2, '#7fcdbb')
         set_box_color(ax3, '#2c7fb8')
 
-        plt.plot([], c='#edf8b1', label='Random Walk')
-        plt.plot([], c='#7fcdbb', label='Novelty Search')
-        plt.plot([], c='#2c7fb8', label='Hill Climbing')
+        plt.plot([], c='#edf8b1', label='Conventional')
+        plt.plot([], c='#7fcdbb', label='Reversible')
+        plt.plot([], c='#2c7fb8', label='Multi-ouput')
         # show a legend on the plot
-        plt.legend(loc = 1, prop={'size': 10})
+        plt.legend(loc = 9, prop={'size': 10})
         # Display a figure.
         plt.show()
 

@@ -4,8 +4,12 @@ import numpy as np
 from linear_genetic_programming._genetic_operations import GeneticOperations
 from linear_genetic_programming._instruction import Instruction
 
-
 class TwoInputBooleanFuncs:
+    
+    '''
+    TwoInputBooleanFuncs implements phenotypes mapping and generation one-step mutation neighbours.
+    '''
+    
     falseFunction = (False, False, False, False)  # 0
     andFunction = (False, False, False, True)  # 1
     notYandXFunction = (False, False, True, False)  # 2
@@ -65,14 +69,14 @@ class TwoInputBooleanFuncs:
         mutProg.eliminateStrcIntron()
 
         execute_results = [False] * TwoInputBooleanFuncs.number_of_samples
-        for j in range(TwoInputBooleanFuncs.number_of_samples):
+        for j in range(TwoInputBooleanFuncs.number_of_samples): # record the execution result (the value of the return variable) of each set of the inputs.
             execute_results[j] = mutProg.execute(GeneticOperations.N_VARIABLE, registers,
                                                  TwoInputBooleanFuncs.sample_inputs[j])
 
         for k in range(16):
             if execute_results[0] == TwoInputBooleanFuncs.phenotypes[k][0] and execute_results[1] == \
                     TwoInputBooleanFuncs.phenotypes[k][1] and execute_results[2] == TwoInputBooleanFuncs.phenotypes[k][
-                2] and execute_results[3] == TwoInputBooleanFuncs.phenotypes[k][3]:
+                2] and execute_results[3] == TwoInputBooleanFuncs.phenotypes[k][3]: # check which one of the 16 phenos match the pattern of the execution results.
                 classLabel = k
         return classLabel
 
@@ -86,7 +90,7 @@ class TwoInputBooleanFuncs:
             reg2 = []
             for j in range(GeneticOperations.N_OPERATION):
                 operations.append(j)
-            operations = list(filter(float(prog.seq[i].oper_index).__ne__, operations))
+            operations = list(filter(float(prog.seq[i].oper_index).__ne__, operations)) # all possible operations except the current operation
             for j in range(GeneticOperations.N_VARIABLE):
                 return_reg.append(j)
             return_reg = list(filter(float(prog.seq[i].returnRegIndex).__ne__, return_reg))
@@ -95,7 +99,7 @@ class TwoInputBooleanFuncs:
                 reg2.append(j)
             reg1 = list(filter(float(prog.seq[i].reg1_index).__ne__, reg1))
             reg2 = list(filter(float(prog.seq[i].reg2_index).__ne__, reg2))
-            for m in range(GeneticOperations.N_INSTRUCTION_ONESTEPMUT):
+            for m in range(GeneticOperations.N_INSTRUCTION_ONESTEPMUT): # for all possible mutation
                 mutProg = copy.deepcopy(prog)
                 if m < GeneticOperations.N_OPERATION - 1:  # mutate operation
                     mutProg.seq[i].oper_index = operations[m]

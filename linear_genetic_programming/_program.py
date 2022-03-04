@@ -17,6 +17,12 @@ class Program:
     ----------
     seq : python list
         contain a list of Instructions
+    robust : int
+        number of neutral neighbours
+    evolva : int
+        number of phenotypes which are different from the current program's
+    length : int
+        length of the current program
 
     '''
     OP_AND = 0
@@ -67,6 +73,9 @@ class Program:
         return register_copy[0]
 
     def eliminateStrcIntron(self):
+        """
+        Elimininate the instructions which have no effects to the final execution results.
+        """
         strucIntronFreeProg = Program()
         effInstr = []
         effReg = []
@@ -93,7 +102,7 @@ class Program:
         neibor_pheno = []
         prog_func = TwoInputBooleanFuncs.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
+            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])] # all the phenos of the neighbours
         for j in range(len(neibors)):
             if neibor_pheno[j] == prog_func:
                 neutral_neibor_count += 1
@@ -107,11 +116,15 @@ class Program:
         for i in range(len(neibors)):
             neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
         for j in range(len(neibors)):
+            # if the pheno is not the same of current's and not recorded
             if (neibor_pheno[j] != prog_func) and (neibor_pheno[j] not in neibor_non_neutral_func):
                 neibor_non_neutral_func += [neibor_pheno[j]]
         self.evolva = len(neibor_non_neutral_func)
 
     def fitness(self, target_pheno):
+        """
+        Calculate the pheno difference between the current program and the target program (used in the searching technique).
+        """
         prog_func = TwoInputBooleanFuncs.phenotypes[TwoInputBooleanFuncs.phenotype(self)]
         target_func = TwoInputBooleanFuncs.phenotypes[target_pheno]
         fit_list = [ai == bi for ai,bi in zip(prog_func, target_func)]

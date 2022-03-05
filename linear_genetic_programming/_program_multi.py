@@ -30,9 +30,8 @@ class ProgramMulti:
         self.seq = []
 
     def makeRandomeProg(self, numberOfOperation, numberOfVariable, numberOfInput, length, regulator = 0):
-        ins = Instruction()
         for i in range(length):
-            ins.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
+            ins = Instruction.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
             self.seq.append(ins)
         self.regulator = regulator
 

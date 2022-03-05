@@ -33,10 +33,10 @@ class ProgramRev:
         self.seq = []
 
     def makeRandomeProg(self, numberOfOperation, numberOfVariable, numberOfInput, length, regulator = 0):
-        ins = Instruction()
         for i in range(length):
-            ins.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
+            ins = Instruction.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
             self.seq.append(ins)
+        self.regulator = regulator
 
     def makeDetermProg(self, instrs, regulator = 0):
         for i in range(len(instrs)):

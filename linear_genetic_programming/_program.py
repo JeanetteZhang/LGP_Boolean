@@ -35,9 +35,8 @@ class Program:
         self.seq = []
 
     def makeRandomeProg(self, numberOfOperation, numberOfVariable, numberOfInput, length):
-        ins = Instruction()
         for i in range(length):
-            ins.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
+            ins = Instruction.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
             self.seq.append(ins)
 
     def makeDetermProg(self, instrs):

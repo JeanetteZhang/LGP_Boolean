@@ -44,13 +44,13 @@ class Program:
         for i in range(len(instrs)):
             self.seq.append(instrs[i])
 
-    def toString(self):
+    def __str__(self):
         s = ""
         count = 0
         if self.seq == []:
             return "empty program"
         for i in self.seq:
-            s += "I" + str(count) + ":  " + i.toString() + "\n"
+            s += "I" + str(count) + ":  " + str(i) + "\n"
             count += 1
         return s
 

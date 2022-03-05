@@ -71,7 +71,7 @@ class GraphicToolHill:
         ax.set_xticks(xlocations)
         plt.xlabel('Target Phenotype')
         plt.ylabel('Number of Steps')
-        plt.title('Plots For Hill Climbing in Three Modes')
+        plt.title('Hill climbing')
 
         positions_group1 = [x - (width + 0.01) for x in xlocations]
         positions_group2 = xlocations
@@ -107,13 +107,13 @@ class GraphicToolHill:
             plt.setp(bp['caps'], color=color)
             plt.setp(bp['medians'], color= '#636363')
 
-        set_box_color(ax1, '#edf8b1')
-        set_box_color(ax2, '#7fcdbb')
-        set_box_color(ax3, '#2c7fb8')
+        set_box_color(ax1, 'b')
+        set_box_color(ax2, 'g')
+        set_box_color(ax3, 'y')
 
-        plt.plot([], c='#edf8b1', label='Conventional')
-        plt.plot([], c='#7fcdbb', label='Reversible')
-        plt.plot([], c='#2c7fb8', label='Multi-ouput')
+        plt.plot([], c='b', label='conventional')
+        plt.plot([], c='g', label='reversible')
+        plt.plot([], c='y', label='multi-ouput')
         # show a legend on the plot
         plt.legend(loc = 9, prop={'size': 10})
         # Display a figure.

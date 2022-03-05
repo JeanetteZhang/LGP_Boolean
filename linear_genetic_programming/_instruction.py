@@ -3,9 +3,9 @@ import numpy as np
 
 class Instruction:
     '''
-    Instruction is the lowest level in classification model. It contains a return register,
-    an operation and two calculation registers. For example, "r[0] = r[2] NAND r[3]", r[0] is
-    a return register, r[2] and r[3] are input registers, 'NAND' is operation register.
+    Instruction is the lowest level in a LGP model. It contains a return register,
+    an operation register and two calculation registers. For example, "r[0] = r[2] NAND r[3]", r[0] is
+    the return register, r[2] and r[3] are input registers, 'NAND' is the operation register.
 
     Parameters
     ----------
@@ -31,22 +31,19 @@ class Instruction:
     OP_NAND = 2
     OP_NOR = 3
 
-    def __init__(self):
-        pass
-
-    def makeRandInstr(self, numberOfOperation, numberOfVariable, numberOfInput):
-        r1 = np.random.randint(numberOfVariable + numberOfInput)
-        self.reg1_index = r1
-        r2 = np.random.randint(numberOfVariable + numberOfInput)
-        self.reg2_index = r2
-        self.oper_index = np.random.randint(numberOfOperation)
-        self.returnRegIndex = np.random.randint(numberOfVariable)
-
-    def makeDetermInstr(self, indexOfOperation, indexOfRetReg, indexOfReg1, indexOfReg2):
+    def __init__(self, indexOfOperation, indexOfRetReg, indexOfReg1, indexOfReg2):
         self.oper_index, self.returnRegIndex, self.reg1_index, self.reg2_index = \
             indexOfOperation, indexOfRetReg, indexOfReg1, indexOfReg2
 
-    def toString(self):
+    @classmethod
+    def makeRandInstr(cls, numberOfOperation, numberOfVariable, numberOfInput):
+        r1 = np.random.randint(numberOfVariable + numberOfInput)
+        r2 = np.random.randint(numberOfVariable + numberOfInput)
+        oper_index = np.random.randint(numberOfOperation)
+        returnRegIndex = np.random.randint(numberOfVariable)
+        return cls(oper_index, returnRegIndex, r1, r2)
+
+    def __str__(self):
         s = "<"
 
         if self.oper_index == self.OP_AND:

@@ -12,8 +12,7 @@ class NoveltySearch:
             visited = [False] * 16
             sequence = []
             for m in range(4):
-                instr = Instruction()
-                instr.makeRandInstr(4, 2, 2)
+                instr = Instruction.makeRandInstr(4, 2, 2)
                 sequence.append(instr)
 
             prog = Program()

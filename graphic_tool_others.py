@@ -1,9 +1,14 @@
+import math
+
 import matplotlib.pyplot as plt
 import csv
 import seaborn as sns
 import numpy as np
 import pandas as pd
-
+sns.set()
+import matplotlib
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
 # ignore this part
 '''
 x1 = [1, 2, 3]
@@ -71,10 +76,13 @@ traversal_redundancy = [8.082021834, 7.418768884, 6.896875276, 7.681903177, 6.89
 x = np.arange(len(labels))
 width = 0.4
 fig, ax = plt.subplots()
-rects1 = ax.bar(x - 3*width/4, forwards_redundancy, width/2, label='conventional', color='k')
-rects2 = ax.bar(x - width/4, backwards_redundancy, width/2, label='reversible', color='b')
+rects1 = ax.bar(x - 3*width/4, forwards_redundancy, width/2, label='conventional', color='y')
+rects2 = ax.bar(x - width/4, backwards_redundancy, width/2, label='reversible', color='g')
 
-rects3 = ax.bar(x + width/4, traversal_redundancy, width/2, label='multi-output', color='y')
+rects3 = ax.bar(x + width/4, traversal_redundancy, width/2, label='multi-output', color='b')
+plt.ylim((0,10))
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=14)
 
 # Add some text for labels, title and custom x-axis tick labels, etc.
 ax.set_ylabel('count(log)')
@@ -86,6 +94,7 @@ ax.legend()
 plt.xticks(fontsize=23)
 plt.yticks(fontsize=24)
 
+'''
 x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 y_original = [2415749120, 524564480, 157726720, 961464320, 157726720, 961464320, 993280, 524564480, 524564480, 993280,
               961464320, 157726720, 961464320, 157726720, 524564480, 1744660480]
@@ -94,12 +103,13 @@ y_back = [4952285696, 1075357184, 323339776, 1971001856, 323339776, 1971001856, 
 y_multi = [4952285696, 1075357184, 323339776, 1971001856, 323339776, 1971001856, 2036224, 1075357184, 1075357184,
            2036224, 1971001856, 323339776, 1971001856, 323339776, 1075357184, 3576553984]
 
-plt.scatter(x, y_multi, label='multi-output', marker=",", color="y", s=60)
-plt.scatter(x, y_back, label='reversible', marker="x", color="b", s=60)
-plt.scatter(x, y_original, label='conventional', color="k", s=60)
+plt.scatter(x, y_multi, label='multi-output', marker=",", color='y', s=60)
+plt.scatter(x, y_back, label='reversible', marker="x", color='g', s=60)
+plt.scatter(x, y_original, label='conventional', color='b', s=60)
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=14)
 
+'''
 x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 y_conventional = [0.775458379, 0.656075897, 0.487932546, 0.691573919, 0.487932546, 0.691573919, 0.194201031,
                   0.664392313, 0.66233883, 0.194201031, 0.689147554, 0.487932546, 0.689147554, 0.487932546, 0.654022415,
@@ -109,10 +119,11 @@ y_reversible = [0.770221528, 0.646686234, 0.476810425, 0.682897573, 0.476810425,
 y_multi = [0.763031545, 0.643550919, 0.477652437, 0.678991174, 0.477652437, 0.678991174, 0.189841589, 0.651664495,
            0.648270943, 0.189841589, 0.675098445, 0.477652437, 0.675098445, 0.477652437, 0.640157368, 0.699410146]
 plt.scatter(x, y_multi, label='multi-output', marker=",", color='y', s=45)
-plt.scatter(x, y_reversible, label='reversible', marker="x", color='b', s=45)
-plt.scatter(x, y_conventional, label='conventional', color='k', s=45)
+plt.scatter(x, y_reversible, label='reversible', marker="x", color='g', s=45)
+plt.scatter(x, y_conventional, label='conventional', color='b', s=45)
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=14)
+
 
 x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 y_conventional = [0.280446022, 0.460330164, 0.50779867, 0.336580381, 0.50779867, 0.336580381, 0.75652921, 0.460935334,
@@ -122,20 +133,26 @@ y_reversible = [0.28750612, 0.471599917, 0.520805336, 0.349883358, 0.520805336, 
 y_multi = [0.283044491, 0.469055503, 0.52022712, 0.343363023, 0.52022712, 0.343363023, 0.756529209, 0.472229326,
            0.483674055, 0.756529209, 0.353727448, 0.527310697, 0.353727448, 0.527310697, 0.498661595, 0.327697058]
 plt.scatter(x, y_multi, label='multi-output', marker=",", color='y', s=45)
-plt.scatter(x, y_reversible, label='reversible', marker="x", color='b', s=45)
-plt.scatter(x, y_conventional, label='conventional', color='k', s=45)
+plt.scatter(x, y_reversible, label='reversible', marker="x", color='g', s=45)
+plt.scatter(x, y_conventional, label='conventional', color='b', s=45)
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=14)
-'''
-data = pd.read_excel(r'C:\Users\eclipse\Desktop\master\edges(graph).xlsx')
+
+
+data = pd.read_excel(r'/Users/jeanette/Desktop/master/LGP_Boolean/edges(graph).xlsx')
 df = pd.DataFrame(data, columns=['conventional', 'reversible', 'multi-output'])
+bins = [0, 1e7, 2e7, 3e7, 4e7, 5e7]
+plt.hist(df, bins, histtype='bar', rwidth=0.8)
+
+
 x = np.linspace(0, 135, num=136)
 plt.plot(x, df['conventional'], label='conventional', marker='s', color='k', markersize=3)
 plt.plot(x, df['reversible'], label='reversible', marker='x', color='b', markersize=3)
 plt.plot(x, df['multi-output'], label='multi-output', marker='o', color='y', markersize=3)
-plt.xticks(fontsize=23)
-plt.yticks(fontsize=24)
+plt.xticks(fontsize=12.5)
+plt.yticks(fontsize=15)
 # plt.grid(True)
+'''
 
 # df = pd.read_excel(r'neighbors.xlsx')
 # x3 = pd.DataFrame(df, columns=['node'])
@@ -145,9 +162,9 @@ plt.yticks(fontsize=24)
 # sns.jointplot(x=x3, y=y3, data=res, kind="kde")
 
 
-plt.xlabel('edge', fontsize=20)
-plt.ylabel('edge weight(log)', fontsize=20)
-plt.legend(prop={"size": 20})
+plt.xlabel('Phenotype', fontsize=13)
+plt.ylabel('Node strength', fontsize=15)
+plt.legend(prop={"size": 14.5})
 # plt.subplots_adjust(left=0.09, bottom=0.16, right=0.94, top=0.95, wspace=0.92, hspace=0)
 
 plt.show()

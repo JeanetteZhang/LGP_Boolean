@@ -31,7 +31,7 @@ class Instruction:
     OP_NAND = 2
     OP_NOR = 3
 
-    def __init__(self, indexOfOperation, indexOfRetReg, indexOfReg1, indexOfReg2):
+    def __init__(self, indexOfOperation: int, indexOfRetReg: int, indexOfReg1: int, indexOfReg2: int):
         self.oper_index, self.returnRegIndex, self.reg1_index, self.reg2_index = \
             indexOfOperation, indexOfRetReg, indexOfReg1, indexOfReg2
 

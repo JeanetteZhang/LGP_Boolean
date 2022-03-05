@@ -66,7 +66,7 @@ class Program:
                 register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index]
             elif self.seq[i].oper_index == self.OP_NAND:
                 register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index])
-            elif self.seq[i].oper_index == self.OP_NOR:  # protected operation
+            elif self.seq[i].oper_index == self.OP_NOR:
                 register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index])
             i += 1
         return register_copy[0]

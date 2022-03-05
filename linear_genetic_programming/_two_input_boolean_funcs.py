@@ -54,8 +54,7 @@ class TwoInputBooleanFuncs:
             for j in range(GeneticOperations.N_VARIABLE):  # 2
                 for k in range(GeneticOperations.N_VARIABLE + GeneticOperations.N_INPUT):  # 2+2
                     for l in range(GeneticOperations.N_VARIABLE + GeneticOperations.N_INPUT):  # 2+2
-                        ins = Instruction()
-                        ins.makeDetermInstr(i, j, k, l)
+                        ins = Instruction(i, j, k, l)
                         instructions.append(ins)
         return instructions
 

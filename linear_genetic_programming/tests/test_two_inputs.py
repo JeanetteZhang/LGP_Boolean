@@ -7,11 +7,11 @@ from linear_genetic_programming.tests.mock_random import make_mock_random
 
 class TestTwoInputs(TestCase):
     def setUp(self) -> None:
-        with mock.patch('numpy.random.randint', make_mock_random([0, 1, 2, 3, 1, 0, 2, 3, 1, 1, 2, 3, 0, 0, 1, 2])):
+        with mock.patch('numpy.random.randint', make_mock_random([3,2,1,0,3,2,0,1,2,3,1,1,2,1,0,0])):
             self.prog = Program.makeRandomeProg(4, 2, 2, 4)
 
     def test_phenotypes(self):
-        self.assertEqual(TwoInputBooleanFuncs.phenotype(self.prog), 0)
+        self.assertEqual(TwoInputBooleanFuncs.phenotype(self.prog), 3)
         self.assertNotEqual(TwoInputBooleanFuncs.phenotype(self.prog), 1)
 
     def test_generate_neibor(self):

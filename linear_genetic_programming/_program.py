@@ -9,9 +9,6 @@ class Program:
     A Program is a collection of instructions. An effective program means all Instruction
     play a role in the return value.
 
-    Parameters
-    ----------
-
     Attributes
     ----------
     seq : python list
@@ -28,19 +25,22 @@ class Program:
     OP_OR = 1
     OP_NAND = 2
     OP_NOR = 3
-    OP_EXPON = 4
 
-    def __init__(self):
+    def __init__(self, instrs=None):
+        if instrs is None:
+            instrs = []
         self.seq = []
-
-    def makeRandomeProg(self, numberOfOperation, numberOfVariable, numberOfInput, length):
-        for i in range(length):
-            ins = Instruction.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
-            self.seq.append(ins)
-
-    def makeDetermProg(self, instrs):
         for i in range(len(instrs)):
             self.seq.append(instrs[i])
+
+    @classmethod
+    def makeRandomeProg(cls, numberOfOperation, numberOfVariable, numberOfInput, length):
+        instrs = []
+        for i in range(length):
+            ins = Instruction.makeRandInstr(numberOfOperation, numberOfVariable, numberOfInput)
+            instrs.append(ins)
+        return cls(instrs)
+
 
     def __str__(self):
         s = ""
@@ -60,13 +60,14 @@ class Program:
         i = 0
         while i < len(self.seq):
             if self.seq[i].oper_index == self.OP_AND:
-                register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index]
+                res = register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index]
             elif self.seq[i].oper_index == self.OP_OR:
-                register_copy[self.seq[i].returnRegIndex] = register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index]
+                res = register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index]
             elif self.seq[i].oper_index == self.OP_NAND:
-                register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index])
+                res = not (register_copy[self.seq[i].reg1_index] and register_copy[self.seq[i].reg2_index])
             elif self.seq[i].oper_index == self.OP_NOR:
-                register_copy[self.seq[i].returnRegIndex] = not (register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index])
+                res = not (register_copy[self.seq[i].reg1_index] or register_copy[self.seq[i].reg2_index])
+            register_copy[self.seq[i].returnRegIndex] = res
             i += 1
         return register_copy[0]
 
@@ -100,11 +101,11 @@ class Program:
         neibor_pheno = []
         prog_func = TwoInputBooleanFuncs.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])] # all the phenos of the neighbours
+            neibor_pheno.append(TwoInputBooleanFuncs.phenotype(neibors[i])) # all the phenos of the neighbours
         for j in range(len(neibors)):
             if neibor_pheno[j] == prog_func:
                 neutral_neibor_count += 1
-        self.robust = neutral_neibor_count
+        return neutral_neibor_count
 
     def get_geno_evolva(self):
         neibor_non_neutral_func = []
@@ -112,12 +113,12 @@ class Program:
         neibor_pheno = []
         prog_func = TwoInputBooleanFuncs.phenotype(self)
         for i in range(len(neibors)):
-            neibor_pheno += [TwoInputBooleanFuncs.phenotype(neibors[i])]
+            neibor_pheno.append(TwoInputBooleanFuncs.phenotype(neibors[i]))
         for j in range(len(neibors)):
             # if the pheno is not the same of current's and not recorded
             if (neibor_pheno[j] != prog_func) and (neibor_pheno[j] not in neibor_non_neutral_func):
-                neibor_non_neutral_func += [neibor_pheno[j]]
-        self.evolva = len(neibor_non_neutral_func)
+                neibor_non_neutral_func.append(neibor_pheno[j])
+        return len(neibor_non_neutral_func)
 
     def fitness(self, target_pheno):
         """

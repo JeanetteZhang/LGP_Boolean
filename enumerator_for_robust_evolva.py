@@ -28,17 +28,14 @@ if __name__ == '__main__':
                     instrs.append(instructions[k])
                     instrs.append(instructions[l])
 
-                    prog = Program()
-                    prog.makeDetermProg(instrs)
+                    prog = Program(instrs)
                     function_class = TwoInputBooleanFuncs.phenotype(prog)
                     fun_class.append(function_class)
 
                     if function_class == EnumeratorForRobust.FUNCLASS:
-                        prog.get_geno_robust()
-                        robust = prog.robust
+                        robust = prog.get_geno_robust()
                         geno_mut_robust.append(robust)
-                        prog.get_geno_evolva()
-                        evolva = prog.evolva
+                        evolva = prog.get_geno_evolva()
                         geno_evolva.append(evolva)
                         f1.write(str(robust) + "\t" + str(evolva))
 

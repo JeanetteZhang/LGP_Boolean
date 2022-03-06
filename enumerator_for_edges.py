@@ -1,8 +1,8 @@
 import copy
 
 from linear_genetic_programming._program import Program
-from linear_genetic_programming._constants import Constants
 from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
+import linear_genetic_programming._constants as _constants
 
 class EnumeratorForEdges:
 
@@ -16,13 +16,13 @@ class EnumeratorForEdges:
             return_reg = []
             reg1 = []
             reg2 = []
-            for j in range(Constants.N_OPERATION):
+            for j in range(_constants.N_OPERATION):
                 operations.append(j)
             operations = list(filter((prog.seq[i].oper_index).__ne__, operations))
-            for j in range(Constants.N_VARIABLE):
+            for j in range(_constants.N_VARIABLE):
                 return_reg.append(j)
             return_reg = list(filter((prog.seq[i].returnRegIndex).__ne__, return_reg))
-            for j in range(Constants.N_INPUT + Constants.N_VARIABLE):
+            for j in range(_constants.N_INPUT + _constants.N_VARIABLE):
                 reg1.append(j)
                 reg2.append(j)
             reg1 = list(filter((prog.seq[i].reg1_index).__ne__, reg1))
@@ -67,8 +67,7 @@ if __name__ == '__main__':
                     instrs.append(instructions[k])
                     instrs.append(instructions[l])
 
-                    prog = Program()
-                    prog.makeDetermProg(instrs)
+                    prog = Program(instrs)
                     enumerator.generateOneStepNeiborsWithConnections(prog)
 
     for i in range(EnumeratorForEdges.N_PHENO):

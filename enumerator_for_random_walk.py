@@ -19,8 +19,7 @@ class EnumeratorForRandomWalk:
                 instr = Instruction.makeRandInstr(4, 2, 2)
                 sequence.append(instr)
             
-            prog_con = Program()
-            prog_con.makeDetermProg(sequence)
+            prog_con = Program(sequence)
             
             pheno_cur = TwoInputBooleanFuncs.phenotype(prog_con)
             prog_update = copy.deepcopy(prog_con)

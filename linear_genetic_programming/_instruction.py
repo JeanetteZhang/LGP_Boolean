@@ -7,12 +7,6 @@ class Instruction:
     an operation register and two calculation registers. For example, "r[0] = r[2] NAND r[3]", r[0] is
     the return register, r[2] and r[3] are input registers, 'NAND' is the operation register.
 
-    Parameters
-    ----------
-    numberOfOperation
-    numberOfVariable
-    numberOfInput
-
     Attributes
     ----------
     oper_index
@@ -32,6 +26,14 @@ class Instruction:
     OP_NOR = 3
 
     def __init__(self, indexOfOperation: int, indexOfRetReg: int, indexOfReg1: int, indexOfReg2: int):
+        """
+        Parameters
+        ----------
+        indexOfOperation
+        indexOfRetReg
+        indexOfReg1
+        indexOfReg2
+        """
         self.oper_index, self.returnRegIndex, self.reg1_index, self.reg2_index = \
             indexOfOperation, indexOfRetReg, indexOfReg1, indexOfReg2
 

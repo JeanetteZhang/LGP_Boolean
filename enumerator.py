@@ -22,8 +22,7 @@ class HC:
                 sequence.append(instr)
 
             start = time.time()
-            prog_con = Program()
-            prog_con.makeDetermProg(sequence)
+            prog_con = Program(sequence)
 
             pheno_cur = TwoInputBooleanFuncs.phenotype(prog_con)
             prog_update = copy.deepcopy(prog_con)
@@ -40,8 +39,7 @@ class HC:
             time1 += end - start
 
             start = time.time()
-            prog2 = Program()
-            prog2.makeDetermProg(sequence)
+            prog2 = Program(sequence)
 
             pheno_cur = TwoInputBooleanFuncs.phenotype(prog2)
             prog_cur = copy.deepcopy(prog2)
@@ -64,8 +62,7 @@ class HC:
 
 
             start = time.time()
-            prog3 = Program()
-            prog3.makeDetermProg(sequence)
+            prog3 = Program(sequence)
 
             pheno_cur = TwoInputBooleanFuncs.phenotype(prog3)
             prog_cur = copy.deepcopy(prog3)

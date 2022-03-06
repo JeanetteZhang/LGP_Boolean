@@ -14,8 +14,7 @@ class HillClimbing:
                 instr = Instruction.makeRandInstr(4, 2, 2)
                 sequence.append(instr)
 
-            prog = Program()
-            prog.makeDetermProg(sequence)
+            prog = Program(sequence)
 
             pheno_cur = TwoInputBooleanFuncs.phenotype(prog)
             prog_cur = copy.deepcopy(prog)

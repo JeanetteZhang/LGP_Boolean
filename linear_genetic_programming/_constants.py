@@ -1,10 +1,8 @@
-import numpy as np
-import copy
 
 
-class GeneticOperations:
+class Constants:
     '''
-    GeneticOperations implements crossover and two types of mutation
+    Constants store the settings for genotypes.
     '''
 
     N_OPERATION = 4

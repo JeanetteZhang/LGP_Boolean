@@ -1,6 +1,5 @@
 from linear_genetic_programming._instruction import Instruction
 import copy
-from operator import xor
 
 from linear_genetic_programming._two_input_boolean_funcs import TwoInputBooleanFuncs
 
@@ -54,7 +53,7 @@ class Program:
         return s
 
     # input is 1 dimension 1 row data
-    def execute(self, numberOfVariable, register, input):
+    def execute(self, numberOfVariable: int, register: [bool], input: [bool]):
         register_copy = copy.deepcopy(register)
         for i in range(len(input)):
             register_copy[i + numberOfVariable] = input[i]
